@@ -42,7 +42,7 @@ async fn connect_and_listen(ws_url: &str, wallet_address: H160) -> eyre::Result<
     while let Some(tx_hash) = sub.try_next().await? {
         if let Ok(Some(tx)) = web3.eth().transaction(web3::types::TransactionId::Hash(tx_hash)).await {
             // Check if our wallet is involved
-            if tx.to == Some(wallet_address) || tx.from == Some(wallet_address ){
+            if tx.to == Some(wallet_address ){
                 println!("Incoming Transaction: {:?}", tx.hash);
                 println!("From: {:?}, To: {:?}, Value: {:?}", tx.from, tx.to, tx.value);
             }
